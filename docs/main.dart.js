@@ -7886,7 +7886,8 @@ r=t}else r=c
 if(r==null)r=0
 if(s==null)return new Y.ed(C.k,r,C.J)
 return new Y.ed(s,r,C.J)},
-ug:function ug(a){this.a=a},
+ug:function ug(a,b){this.d=a
+this.a=b},
 uq:function uq(){},
 ur:function ur(){},
 NR:function NR(){},
@@ -25951,8 +25952,7 @@ Y.zH.prototype={}
 Z.ug.prototype={
 N:function(a){var t,s,r,q=null,p=G.S7(a),o=p.b
 if(o==null)o=16
-t=p.c
-if(t==null)t=0
+t=this.d
 s=p.d
 if(s==null)s=0
 r=p.e
@@ -40180,7 +40180,7 @@ K.SH(this.c).yU(V.Vy(new F.JP(this),null,t),t)}}
 F.JN.prototype={
 $2:function(a,b){var t,s,r,q
 b.toString
-if((b&1)===1)return new Z.ug(null)
+if((b&1)===1)return new Z.ug(2,null)
 t=C.f.bj(b,2)
 s=this.a
 r=s.d
