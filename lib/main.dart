@@ -31,7 +31,10 @@ class RandomWordsState extends State<RandomWords> {
         // 注意，在小屏幕上，分割线看起来可能比较吃力。
         itemBuilder: (context, i) {
           // 在每一列之前，添加一个1像素高的分隔线widget
-          if (i.isOdd) return new Divider();
+          if (i.isOdd)
+            return new Divider(
+              thickness: 2,
+            );
 
           // 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整），比如i为：1, 2, 3, 4, 5
           // 时，结果为0, 1, 1, 2, 2， 这可以计算出ListView中减去分隔线后的实际单词对数量
