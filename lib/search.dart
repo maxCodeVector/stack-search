@@ -16,7 +16,15 @@ class SearcherApp extends StatelessWidget {
                 child: new Column(
                   children: <Widget>[
                     new MyAppBar(),
-                    new Center(child: new SearchButton())
+                    new Expanded(
+                      child: new Text(""),
+                      flex: 3,
+                    ),
+                    new SearchButton(),
+                    new Expanded(
+                      child: new Text(""),
+                      flex: 7,
+                    ),
                   ],
                 ))));
   }
@@ -36,12 +44,12 @@ class MyAppBar extends StatelessWidget {
           // Expanded expands its child to fill the available space.
           new Expanded(
             child: new Text(""),
-            flex: 50,
+            flex: 5,
           ),
           new Text("About"),
           new Expanded(
             child: new Text(""),
-            flex: 10,
+            flex: 1,
           ),
         ],
       ),

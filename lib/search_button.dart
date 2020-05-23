@@ -5,6 +5,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
         height: 50.0, // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
+        width: MediaQuery.of(context).size.width * 0.45,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         decoration: new BoxDecoration(color: Colors.white),
         child: new ExampleWidget());
