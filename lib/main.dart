@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:web_search/search.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new SearcherApp());
 
 class MyApp extends StatelessWidget {
   @override
