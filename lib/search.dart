@@ -15,28 +15,28 @@ class SearcherApp extends StatelessWidget {
                 ),
                 child: new Column(
                   children: <Widget>[
-                    new MyAppBar(),
+                    new SearchBar(),
                     new Expanded(
-                      child: new Text(""),
-                      flex: 3,
-                    ),
+                        flex: 3,
+                        child: new Container(
+                            decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                    image: new AssetImage(
+                                        'images/stackoverflow.png'))))),
                     new SearchButton(),
-                    new Expanded(
-                      child: new Text(""),
-                      flex: 7,
-                    ),
+                    new Expanded(flex: 7, child: new Text(""))
                   ],
                 ))));
   }
 }
 
-class MyAppBar extends StatelessWidget {
+class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
       height: 50.0, // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: new BoxDecoration(color: Colors.black12),
+      decoration: new BoxDecoration(color: Colors.white10),
       // Row 是水平方向的线性布局（linear layout）
       child: new Row(
         //列表项的类型是 <Widget>
@@ -46,7 +46,10 @@ class MyAppBar extends StatelessWidget {
             child: new Text(""),
             flex: 5,
           ),
-          new Text("About"),
+          new FlatButton(
+            child: new Text("About", style: TextStyle(fontSize: 24)),
+            onPressed: null,
+          ),
           new Expanded(
             child: new Text(""),
             flex: 1,
