@@ -3,38 +3,37 @@ import 'package:web_search/search_button.dart';
 
 class ResultPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new ResultState();
+  State<StatefulWidget> createState() => ResultState();
 }
 
 class ResultState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
         title: "hy-search",
-        home: new Material(
-            child: new Container(
-                decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                      image: new AssetImage('images/bg2.jpeg'),
-                      fit: BoxFit.cover),
+        home: Material(
+            child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/bg2.jpeg'), fit: BoxFit.cover),
                 ),
-                child: new Column(
+                child: Column(
                   children: [
-                    new Row(
+                    Row(
                       children: [
-                        new Expanded(child: new Text(""), flex: 1),
-                        new FlatButton(
+                        Expanded(child: Text(""), flex: 1),
+                        FlatButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: new Text("Back Home",
+                            child: Text("Back Home",
                                 style: TextStyle(fontSize: 24))),
-                        new Expanded(child: new Text(""), flex: 9)
+                        Expanded(child: Text(""), flex: 9)
                       ],
                     ),
-                    new SearchButton(),
-                    new Text(""),
-                    new Text("search result of: heap. This is page 1",
+                    SearchButton(),
+                    Text(""),
+                    Text("search result of: heap. This is page 1",
                         style: TextStyle(fontSize: 24)),
                   ],
                 ))));

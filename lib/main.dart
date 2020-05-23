@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:web_search/search.dart';
 
-void main() => runApp(new SearcherApp());
+void main() => runApp(SearcherApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Startup Name Generator',
-      home: new RandomWords(),
-      theme: new ThemeData(
+      home: RandomWords(),
+      theme: ThemeData(
         primaryColor: Colors.lightBlueAccent,
       ),
     );
@@ -19,12 +19,12 @@ class MyApp extends StatelessWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _saved = new Set<WordPair>();
+  final _saved = Set<WordPair>();
 
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildSuggestions() {
-    return new ListView.builder(
+    return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
         // 在偶数行，该函数会为单词对添加一个ListTile row.
@@ -33,7 +33,7 @@ class RandomWordsState extends State<RandomWords> {
         itemBuilder: (context, i) {
           // 在每一列之前，添加一个1像素高的分隔线widget
           if (i.isOdd)
-            return new Divider(
+            return Divider(
               thickness: 2,
             );
 
@@ -52,12 +52,12 @@ class RandomWordsState extends State<RandomWords> {
   Widget _buildRow(WordPair pair) {
     final alreadySaved = _saved.contains(pair);
 
-    return new ListTile(
-      title: new Text(
+    return ListTile(
+      title: Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
-      trailing: new Icon(
+      trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
       ),
@@ -75,11 +75,11 @@ class RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Startup Name Generator'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Startup Name Generator'),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved),
+          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
         ],
       ),
       body: _buildSuggestions(),
@@ -88,12 +88,12 @@ class RandomWordsState extends State<RandomWords> {
 
   void _pushSaved() {
     Navigator.of(context).push(
-      new MaterialPageRoute(
+      MaterialPageRoute(
         builder: (context) {
           final tiles = _saved.map(
             (pair) {
-              return new ListTile(
-                title: new Text(
+              return ListTile(
+                title: Text(
                   pair.asPascalCase,
                   style: _biggerFont,
                 ),
@@ -104,11 +104,11 @@ class RandomWordsState extends State<RandomWords> {
             context: context,
             tiles: tiles,
           ).toList();
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Saved Suggestions'),
             ),
-            body: new ListView(children: divided),
+            body: ListView(children: divided),
           );
         },
       ),
@@ -118,5 +118,5 @@ class RandomWordsState extends State<RandomWords> {
 
 class RandomWords extends StatefulWidget {
   @override
-  createState() => new RandomWordsState();
+  createState() => RandomWordsState();
 }

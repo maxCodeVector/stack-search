@@ -50,7 +50,6 @@ flutter:
   assets:
      - images/bg1.jpeg
      - images/bg2.jpeg
-     - images/bg.png
      - images/sto.png
      - images/stackoverflow.png
 
