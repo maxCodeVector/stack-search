@@ -10,20 +10,17 @@ class SearcherApp extends StatelessWidget {
             child: new Container(
                 decoration: new BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage('images/bg1.jpeg'),
-                    fit: BoxFit.cover
-                  ),
+                      image: new AssetImage('images/bg1.jpeg'),
+                      fit: BoxFit.cover),
                 ),
                 child: new Column(
                   children: <Widget>[
                     new MyAppBar(),
-                    new Expanded(child: new Center(child: new SearchButton()))
+                    new Center(child: new SearchButton())
                   ],
                 ))));
   }
 }
-
-
 
 class MyAppBar extends StatelessWidget {
   @override
