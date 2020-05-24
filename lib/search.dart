@@ -25,7 +25,7 @@ class SearcherApp extends StatelessWidget {
                     Text("Help you search question in stackoverflow",
                         style: TextStyle(fontSize: 20)),
                     Text(""),
-                    SearchButton(),
+                    SearchButton(0.45),
                     Expanded(flex: 7, child: Text(""))
                   ],
                 ))));
