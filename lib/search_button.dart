@@ -4,8 +4,9 @@ import 'package:web_search/search_result.dart';
 class SearchButton extends StatelessWidget {
   final double width_prop;
   final String queryText;
+  final Function function;
 
-  const SearchButton(this.width_prop, {Key key, this.queryText})
+  const SearchButton(this.width_prop, {Key key, this.queryText, this.function})
       : super(key: key);
 
   @override
@@ -28,26 +29,28 @@ class SearchButton extends StatelessWidget {
 //              BoxShadow(color: Color(0x9900FF00), offset: Offset(1.0, 1.0)),
 //              BoxShadow(color: Color(0xFF0000FF))
             ], color: Colors.white),
-        child: ExampleWidget(queryText: queryText));
+        child: ExampleWidget(queryText: queryText, function: function));
   }
 }
 
 /// Opens an [AlertDialog] showing what the user typed.
 class ExampleWidget extends StatefulWidget {
   final String queryText;
+  final Function function;
 
-  ExampleWidget({Key key, this.queryText}) : super(key: key);
+  ExampleWidget({Key key, this.queryText, this.function}) : super(key: key);
 
   @override
-  _ExampleWidgetState createState() => _ExampleWidgetState(queryText);
+  _ExampleWidgetState createState() => _ExampleWidgetState(queryText, function);
 }
 
 /// State for [ExampleWidget] widgets.
 class _ExampleWidgetState extends State<ExampleWidget> {
   TextEditingController _controller = TextEditingController();
   final String queryText;
+  final Function function;
 
-  _ExampleWidgetState(this.queryText);
+  _ExampleWidgetState(this.queryText, this.function);
 
   @override
   void initState() {
@@ -65,7 +68,11 @@ class _ExampleWidgetState extends State<ExampleWidget> {
         onPressed: () {
           var queryText = _controller.text;
           if (queryText != null && queryText.isNotEmpty) {
-            changeToSearchResult(context, queryText);
+            if (function == null) {
+              changeToSearchResult(context, queryText);
+            } else {
+              function(context, queryText);
+            }
           }
         },
       ),

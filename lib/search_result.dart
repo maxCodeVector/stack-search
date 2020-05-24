@@ -50,7 +50,13 @@ class ResultState extends State<ResultPage> {
 
   Widget _buildResult() {
     return Column(children: [
-      SearchButton(0.35, queryText: this.searchText),
+      SearchButton(0.35,
+          queryText: this.searchText,
+          function: (BuildContext currContext, String text) {
+              setState(() {
+                this.searchText = text;
+              });
+          }),
       Center(
         child: Row(children: [
           Text("search result of: " + this.searchText,
