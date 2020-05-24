@@ -107,16 +107,16 @@ class ResultItem extends StatelessWidget {
               FlatButton(
                 child: const Text('VIEW'),
                 onPressed: () {
+                  launchURL(content.url);
                   /* ... */
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AnswerPage(
-                              url:
-                                  "https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array",
-                              title: "result demo",
-                            )),
-                  );
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                        builder: (context) => AnswerPage(
+//                              url: content.url,
+//                              title: "result demo",
+//                            )),
+//                  );
                 },
               ),
             ],
@@ -126,22 +126,3 @@ class ResultItem extends StatelessWidget {
     );
   }
 }
-
-//class TravelDestinationItem extends StatelessWidget {
-//  const TravelDestinationItem({Key key}) : super(key: key);
-//
-//  // This height will allow for all the Card's content to fit comfortably within the card.
-//  static const height = 338.0;
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return SafeArea(
-//      top: false,
-//      bottom: false,
-//      child: Padding(
-//        padding: const EdgeInsets.all(8),
-//        child: ResultItem(),
-//      ),
-//    );
-//  }
-//}

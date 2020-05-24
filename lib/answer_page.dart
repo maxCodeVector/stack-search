@@ -18,7 +18,7 @@ class AnswerPage extends StatelessWidget {
   Widget _buildWebView() {
     return Expanded(
         child: EasyWebView(
-      src: "https://www.stackoverflow.com",
+      src: url,
       isHtml: false, // Use Html syntax
       isMarkdown: false, // Use markdown syntax
       convertToWidets: false, // Try to convert to flutter widgets
@@ -45,14 +45,14 @@ class AnswerPage extends StatelessWidget {
             child:
                 Text("Open in Another Window", style: TextStyle(fontSize: 24)),
             onPressed: () {
-              _launchURL(url);
+              launchURL(url);
             },
           )
         ]));
   }
 }
 
-_launchURL(String url) async {
+launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {
