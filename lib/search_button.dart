@@ -13,7 +13,20 @@ class SearchButton extends StatelessWidget {
         // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
         width: MediaQuery.of(context).size.width * width_prop,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: BoxDecoration(
+//            border: new Border.all(color: Color(0xFFFF0000), width: 0.5),
+            // 边色与边宽度
+// 生成俩层阴影，一层绿，一层黄， 阴影位置由offset决定,阴影模糊层度由blurRadius大小决定（大就更透明更扩散），阴影模糊大小由spreadRadius决定
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 5.0,
+                  spreadRadius: 1.0),
+//              BoxShadow(color: Color(0x9900FF00), offset: Offset(1.0, 1.0)),
+//              BoxShadow(color: Color(0xFF0000FF))
+            ],
+            color: Colors.white),
         child: ExampleWidget());
   }
 }
@@ -38,7 +51,10 @@ class _ExampleWidgetState extends State<ExampleWidget> {
       IconButton(
         icon: Icon(Icons.search),
         onPressed: () {
-          changeToSearchResult(context);
+          var queryText = _controller.text;
+          if (queryText != null && queryText.isNotEmpty) {
+            changeToSearchResult(context);
+          }
         },
       ),
     ]);
