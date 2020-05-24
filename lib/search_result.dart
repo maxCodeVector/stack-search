@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:web_search/answer_page.dart';
 import 'package:web_search/search_button.dart';
 
@@ -41,9 +42,22 @@ class ResultState extends State<ResultPage> {
   Widget _buildResult() {
     return Column(children: [
       SearchButton(0.35),
-//                        Text(""),
-      Text("\nsearch result of: sorted array. This is page 1\n",
-          style: TextStyle(fontSize: 20)),
+      Center(
+        child: Row(children: [
+          Text("search result of: sorted array",
+              style: TextStyle(fontSize: 20)),
+          Expanded(child: Align()),
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: null,
+          ),
+          Text("1"),
+          IconButton(
+            icon: Icon(Icons.arrow_forward),
+            onPressed: null,
+          )
+        ]),
+      ),
       Expanded(child: _buildResultList())
     ]);
   }

@@ -23,7 +23,7 @@ class SearcherApp extends StatelessWidget {
                                     image: AssetImage(
                                         'images/stackoverflow.png'))))),
                     Text("Help you search question in stackoverflow",
-                        style: TextStyle(fontSize: 20)),
+                        style: TextStyle(fontSize: 24, color: Colors.white)),
                     Text(""),
                     SearchButton(0.45),
                     Expanded(flex: 7, child: Text(""))
