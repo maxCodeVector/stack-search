@@ -3,8 +3,10 @@ import 'package:web_search/search_result.dart';
 
 class SearchButton extends StatelessWidget {
   final double width_prop;
+  final String queryText;
 
-  const SearchButton(this.width_prop, {Key key}) : super(key: key);
+  const SearchButton(this.width_prop, {Key key, this.queryText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +27,33 @@ class SearchButton extends StatelessWidget {
                   spreadRadius: 1.0),
 //              BoxShadow(color: Color(0x9900FF00), offset: Offset(1.0, 1.0)),
 //              BoxShadow(color: Color(0xFF0000FF))
-            ],
-            color: Colors.white),
-        child: ExampleWidget());
+            ], color: Colors.white),
+        child: ExampleWidget(queryText: queryText));
   }
 }
 
 /// Opens an [AlertDialog] showing what the user typed.
 class ExampleWidget extends StatefulWidget {
-  ExampleWidget({Key key}) : super(key: key);
+  final String queryText;
+
+  ExampleWidget({Key key, this.queryText}) : super(key: key);
 
   @override
-  _ExampleWidgetState createState() => _ExampleWidgetState();
+  _ExampleWidgetState createState() => _ExampleWidgetState(queryText);
 }
 
 /// State for [ExampleWidget] widgets.
 class _ExampleWidgetState extends State<ExampleWidget> {
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
+  final String queryText;
+
+  _ExampleWidgetState(this.queryText);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new TextEditingController(text: queryText);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +65,7 @@ class _ExampleWidgetState extends State<ExampleWidget> {
         onPressed: () {
           var queryText = _controller.text;
           if (queryText != null && queryText.isNotEmpty) {
-            changeToSearchResult(context);
+            changeToSearchResult(context, queryText);
           }
         },
       ),
@@ -61,9 +73,9 @@ class _ExampleWidgetState extends State<ExampleWidget> {
   }
 }
 
-void changeToSearchResult(BuildContext currContext) {
+void changeToSearchResult(BuildContext currContext, String text) {
   Navigator.push(
     currContext,
-    MaterialPageRoute(builder: (context) => ResultPage()),
+    MaterialPageRoute(builder: (context) => ResultPage(searchText: text)),
   );
 }

@@ -4,11 +4,20 @@ import 'package:web_search/answer_page.dart';
 import 'package:web_search/search_button.dart';
 
 class ResultPage extends StatefulWidget {
+  final String searchText;
+
+  const ResultPage({Key key, this.searchText}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => ResultState();
+  State<StatefulWidget> createState() => ResultState(searchText);
 }
 
 class ResultState extends State<ResultPage> {
+  String searchText;
+  int currentPageIndex = 1;
+
+  ResultState(this.searchText);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,20 +50,31 @@ class ResultState extends State<ResultPage> {
 
   Widget _buildResult() {
     return Column(children: [
-      SearchButton(0.35),
+      SearchButton(0.35, queryText: this.searchText),
       Center(
         child: Row(children: [
-          Text("search result of: sorted array",
+          Text("search result of: " + this.searchText,
               style: TextStyle(fontSize: 20)),
           Expanded(child: Align()),
           IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: null,
+            onPressed: () {
+              if (currentPageIndex <= 1) {
+                return;
+              }
+              setState(() {
+                this.currentPageIndex--;
+              });
+            },
           ),
-          Text("1"),
+          Text(currentPageIndex.toString()),
           IconButton(
             icon: Icon(Icons.arrow_forward),
-            onPressed: null,
+            onPressed: () {
+              setState(() {
+                this.currentPageIndex++;
+              });
+            },
           )
         ]),
       ),
