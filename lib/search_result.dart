@@ -8,11 +8,14 @@ import 'package:dio/dio.dart';
 
 class ResultPage extends StatefulWidget {
   final String searchText;
+  final List<dynamic> initResultList;
 
-  const ResultPage({Key key, this.searchText}) : super(key: key);
+  const ResultPage({Key key, this.searchText, this.initResultList})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => ResultState(searchText);
+  State<StatefulWidget> createState() =>
+      ResultState(searchText, initResultList);
 }
 
 class ResultState extends State<ResultPage> {
@@ -20,7 +23,7 @@ class ResultState extends State<ResultPage> {
   int currentPageIndex = 1;
   List<dynamic> currResultList;
 
-  ResultState(this.searchText);
+  ResultState(this.searchText, this.currResultList);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,12 @@ class ResultState extends State<ResultPage> {
       }),
       Center(
         child: Row(children: [
-          Text("search result of: " + this.searchText,
+          Text(
+              (currResultList == null
+                      ? "0"
+                      : currResultList.length.toString()) +
+                  " search result of: " +
+                  this.searchText,
               style: TextStyle(fontSize: 20)),
           Expanded(child: Align()),
           IconButton(
@@ -82,6 +90,10 @@ class ResultState extends State<ResultPage> {
           IconButton(
             icon: Icon(Icons.arrow_forward),
             onPressed: () {
+              if (this.currResultList == null ||
+                  currentPageIndex * 10 > currResultList.length) {
+                return;
+              }
               setState(() {
                 this.currentPageIndex++;
               });
@@ -94,7 +106,7 @@ class ResultState extends State<ResultPage> {
   }
 
   Widget _buildResultList() {
-    if (currResultList != null) {
+    if (currResultList != null && currResultList.length != 0) {
       int resultLen = currResultList.length;
       return ListView.builder(
           scrollDirection: Axis.vertical,
@@ -105,7 +117,7 @@ class ResultState extends State<ResultPage> {
           // 在奇数行，该函数会添加一个分割线widget，来分隔相邻的词对。
           // 注意，在小屏幕上，分割线看起来可能比较吃力。
           itemBuilder: (context, i) {
-            int offset = currentPageIndex * 10;
+            int offset = (currentPageIndex - 1) * 10;
             return Container(
                 margin: const EdgeInsets.only(bottom: 8),
                 child: ResultItem(SearchResultContent(
@@ -115,13 +127,12 @@ class ResultState extends State<ResultPage> {
           });
     }
     var example = SearchResultContent(
-        "https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array",
-        "Why is processing a sorted array faster than processing an unsorted array?",
-        "Here is a piece of C++ code that shows some very peculiar behavior. For some strange reason, "
-            "sorting the data miraculously makes the code almost six times faster:");
+        "https://maxcodevector.github.io",
+        "Your search text has no result",
+        "Would you want to give me a cup of coffee?");
     return ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: 10,
+        itemCount: 1,
         padding: const EdgeInsets.all(16.0),
         // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
         // 在偶数行，该函数会为单词对添加一个ListTile row.

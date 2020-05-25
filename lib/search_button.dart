@@ -80,9 +80,12 @@ class _ExampleWidgetState extends State<ExampleWidget> {
   }
 }
 
-void changeToSearchResult(BuildContext currContext, String text) {
+void changeToSearchResult(BuildContext currContext, String text) async {
+  var resultList = await queryFromSearcher(text);
   Navigator.push(
     currContext,
-    MaterialPageRoute(builder: (context) => ResultPage(searchText: text)),
+    MaterialPageRoute(
+        builder: (context) =>
+            ResultPage(searchText: text, initResultList: resultList)),
   );
 }
