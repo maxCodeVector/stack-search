@@ -61,6 +61,7 @@ class ResultState extends State<ResultPage> {
           function: (BuildContext currContext, String text) async {
         var resultList = await queryFromSearcher(text);
         currResultList = resultList;
+        currentPageIndex = 1;
         setState(() {
           this.searchText = text;
         });
@@ -207,7 +208,8 @@ queryFromSearcher(String queryText) async {
   try {
     Response response;
     Dio dio = new Dio();
-    response = await Dio().get("http://127.0.0.1:5000/query/" + queryText);
+    response = await dio.get(
+        "https://web-search-server--maxcodevector.repl.co/query/" + queryText);
 //        await dio.get("https://www.baidu.com");
     return response.data["answer"];
   } catch (e) {
