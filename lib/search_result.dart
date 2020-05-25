@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:web_search/answer_page.dart';
 import 'package:web_search/search_button.dart';
+import 'package:dio/dio.dart';
 
 class ResultPage extends StatefulWidget {
   final String searchText;
@@ -15,6 +18,7 @@ class ResultPage extends StatefulWidget {
 class ResultState extends State<ResultPage> {
   String searchText;
   int currentPageIndex = 1;
+  List<dynamic> currResultList;
 
   ResultState(this.searchText);
 
@@ -50,13 +54,14 @@ class ResultState extends State<ResultPage> {
 
   Widget _buildResult() {
     return Column(children: [
-      SearchButton(0.35,
-          queryText: this.searchText,
-          function: (BuildContext currContext, String text) {
-              setState(() {
-                this.searchText = text;
-              });
-          }),
+      SearchButton(0.35, queryText: this.searchText,
+          function: (BuildContext currContext, String text) async {
+        var resultList = await queryFromSearcher(text);
+        currResultList = resultList;
+        setState(() {
+          this.searchText = text;
+        });
+      }),
       Center(
         child: Row(children: [
           Text("search result of: " + this.searchText,
@@ -89,6 +94,26 @@ class ResultState extends State<ResultPage> {
   }
 
   Widget _buildResultList() {
+    if (currResultList != null) {
+      int resultLen = currResultList.length;
+      return ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: min(resultLen, 10),
+          padding: const EdgeInsets.all(16.0),
+          // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
+          // 在偶数行，该函数会为单词对添加一个ListTile row.
+          // 在奇数行，该函数会添加一个分割线widget，来分隔相邻的词对。
+          // 注意，在小屏幕上，分割线看起来可能比较吃力。
+          itemBuilder: (context, i) {
+            int offset = currentPageIndex * 10;
+            return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                child: ResultItem(SearchResultContent(
+                    currResultList[offset + i][1],
+                    currResultList[offset + i][1],
+                    "Here is a piece of C++ code that shows some very peculiar behavior. For some strange reason, ")));
+          });
+    }
     var example = SearchResultContent(
         "https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array",
         "Why is processing a sorted array faster than processing an unsorted array?",
@@ -164,5 +189,17 @@ class ResultItem extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+queryFromSearcher(String queryText) async {
+  try {
+    Response response;
+    Dio dio = new Dio();
+    response = await Dio().get("http://127.0.0.1:5000/query/" + queryText);
+//        await dio.get("https://www.baidu.com");
+    return response.data["answer"];
+  } catch (e) {
+    print(e);
   }
 }
