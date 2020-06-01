@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:web_search/answer_page.dart';
 import 'package:web_search/search_button.dart';
 import 'package:dio/dio.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ResultPage extends StatefulWidget {
   final String searchText;
@@ -214,5 +215,13 @@ queryFromSearcher(String queryText) async {
     return response.data["answer"];
   } catch (e) {
     print(e);
+  }
+}
+
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
