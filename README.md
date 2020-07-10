@@ -1,4 +1,4 @@
-# web_search
+# stack-search
 
 This is a search engine of stackoverflow questions with complete front end and back end.
 The engine part is Written by python using Vector Space Mode (VSM). Front end is writen by flutter.
